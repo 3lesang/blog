@@ -1,16 +1,22 @@
 ---
-import '../styles/global.css';
-const { content } = Astro.props;
+import "@/styles/global.css";
+import { ClientRouter } from "astro:transitions";
+const { title } = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>{content.title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="en" transition:name="none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <header>
+      <a href="/">Trang chủ</a>
+      <a href="/about">Giới thiệu</a>
+    </header>
+    <slot />
+  </body>
 </html>
