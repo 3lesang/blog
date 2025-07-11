@@ -1,0 +1,27 @@
+---
+import Main from "@/layouts/main.astro";
+import { pb, POST_COLLECTION_NAME } from "@/lib/pocketbase";
+import type { GetStaticPaths } from "astro";
+
+const { slug } = Astro.params;
+export const getStaticPaths = (async () => {
+  const posts = await pb
+    .collection(POST_COLLECTION_NAME)
+    .getFullList({ fields: "slug" });
+  return posts?.map((item) => ({ params: { slug: item?.slug } }));
+}) satisfies GetStaticPaths;
+const post = await pb
+  .collection(POST_COLLECTION_NAME)
+  .getFirstListItem(`slug = "${slug}"`);
+---
+
+<Main title={post?.title}>
+  <div class="sm:max-w-2xl mx-auto py-8 px-4 sm:px-0">
+    <h3 class="text-2xl leading-10 font-semibold text-gray-900">
+      {post?.title}
+    </h3>
+    <p class="text-gray-700 italic my-2">{post?.description}</p>
+    <div class="my-8"></div>
+    <div set:html={post?.content} class="text-gray-900 leading-8 text-lg" />
+  </div>
+</Main>

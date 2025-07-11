@@ -1,9 +1,45 @@
 ---
-import Button from "@/components/Button.astro";
+import Article from "@/components/article.astro";
+import { Separator } from "@/components/ui/separator";
 import Main from "@/layouts/main.astro";
+import { pb, POST_COLLECTION_NAME } from "@/lib/pocketbase";
 import "@/styles/global.css";
+
+const posts = await pb
+  .collection(POST_COLLECTION_NAME)
+  .getFullList({ expand: "topic, author" });
 ---
 
-<Main>
-  <p>home</p>
+<Main title="Cú Anti-Social">
+  <div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h2
+          class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl"
+        >
+          Cú Anti Blog
+        </h2>
+        <p class="mt-2 text-lg/8 text-gray-600">
+          Nơi tôi chia sẻ mọi thứ tôi biết, trừ cách giao tiếp xã hội.
+        </p>
+      </div>
+      <Separator className="sm:mt-16" />
+      <div
+        class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 pt-10 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+      >
+        {
+          posts?.map((item) => (
+            <Article
+              title={item?.title}
+              description={item?.description}
+              slug={item?.slug}
+              topic={item?.expand?.topic}
+              created={item?.created}
+              author={item?.expand?.author}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </Main>

@@ -1,0 +1,87 @@
+---
+import Article from "@/components/article.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import Main from "@/layouts/main.astro";
+import { pb, POST_COLLECTION_NAME } from "@/lib/pocketbase";
+import { cn, routeTranslations } from "@/lib/utils";
+import "@/styles/global.css";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const posts = await pb
+  .collection(POST_COLLECTION_NAME)
+  .getFullList({ expand: "topic, author", perPage: 6 });
+
+const topicURL = getRelativeLocaleUrl("vi", routeTranslations["vi"].topic);
+---
+
+<Main title="Anti-Social Blog">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="flex justify-center my-8">
+      <input
+        class="px-8 py-2 rounded-full bg-gray-50 w-96 h-12"
+        placeholder="Tìm kiếm bài viết"
+      />
+    </div>
+
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h2
+        class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl"
+      >
+        Anti-Social Blog
+      </h2>
+      <p class="mt-2 text-lg/8 text-gray-600">
+        Nơi tôi chia sẻ mọi thứ tôi biết, trừ cách giao tiếp xã hội.
+      </p>
+      <a href="/app" class="bg-sky-200 px-8 py-2 rounded-full mt-2 inline-block"
+        >Viết bài</a
+      >
+    </div>
+    <Separator className="sm:mt-16 mt-4" />
+
+    <div class="sm:mt-16 mt-4">
+      <div class="flex justify-between items-center">
+        <h3
+          class="text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-2xl"
+        >
+          Bài viết hay nhất
+        </h3>
+      </div>
+      <div
+        class="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+      >
+        {
+          posts?.map((item) => (
+            <Article
+              title={item?.title}
+              description={item?.description}
+              slug={item?.slug}
+              topic={item?.expand?.topic}
+              created={item?.created}
+              author={item?.expand?.author}
+            />
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="sm:mt-16 mt-4">
+      <div class="flex justify-between items-center">
+        <h3
+          class="text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-2xl"
+        >
+          Công nghệ
+        </h3>
+        <a
+          href={`${topicURL}khoa-hoc-cong-nghe`}
+          class={cn(buttonVariants({ variant: "link" }))}>Xem thêm</a
+        >
+      </div>
+    </div>
+  </div>
+  <footer class="h-96">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <Separator />
+    </div>
+  </footer>
+</Main>
