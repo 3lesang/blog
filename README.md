@@ -1,13 +1,31 @@
-# Astro with Tailwind
+# 📝 Sang's Blog
 
-```sh
-pnpm create astro@latest -- --template with-tailwindcss
-```
+Welcome to my personal blog! This is where I share articles, tutorials, and thoughts on front-end development, web technologies, and my learning journey as a developer from **Vietnam**.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/with-tailwindcss/devcontainer.json)
+---
 
-Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+## 📚 Topics I Write About
 
-For complete setup instructions, please see our [Tailwind Integration Guide](https://docs.astro.build/en/guides/integrations-guide/tailwind).
+- 💻 Front-end frameworks (React, Vue, Next.js)
+- 🎨 UI/UX design principles and best practices
+- ⚡ Performance & accessibility
+- 🛠️ Developer tools and workflows
+- 🌱 Personal experiences and growth
+
+---
+
+## 🚀 Getting Started
+
+If you'd like to run the blog locally or contribute, follow the steps below.
+
+### Prerequisites
+
+- Node.js (v16 or later)
+- pnpm or yarn
+
+### Installation
+
+```bash
+git clone https://github.com/3lesang/blog.git
+cd blog
+pnpm install
